@@ -53,5 +53,30 @@
   "item.aunique-epic.mutated_chestplate": "异化胸甲",
   "item.aunique-epic.rampage_leggings": "暴走护腿",
   "item.aunique-epic.shattered_boots": "碎裂之靴",
-  "item.aunique-epic.marbas_fang": "玛尔巴斯之噬"
+  "item.aunique-epic.marbas_fang": "玛尔巴斯之噬",
+  "item.aunique-epic.marbas_fang.desc": "每击杀一名敌人，攻击力 +5%，最多叠 10 层。",
+  "item.aunique-epic.marbas_fang.stacks": "当前层数：%s / %s",
+  "item.aunique-epic.marbas_fang.bonus": "当前加成：+%s%% 攻击力",
+  "item.aunique-epic.marbas_fang.hint": "带在身上即可生效 · 也可右键装入项链槽",
+
+  "hud.aunique-epic.marbas": "玛尔巴斯之噬　%s / %s 层",
+  "message.aunique-epic.marbas_stack": "玛尔巴斯之噬：%s / %s 层（+%s%% 攻击力）",
+
+  "item.aunique-epic.heart_devourer_communion": "噬心大剑·共噬",
+  "item.aunique-epic.heart_devourer_communion.burst": "厄血爆发：以你为中心，对 15 格内的敌人造成真实伤害。",
+  "item.aunique-epic.heart_devourer_communion.revive": "免于一死，并获得生命恢复 II。",
+  "item.aunique-epic.heart_devourer_communion.ready": "厄血：已就绪",
+  "item.aunique-epic.heart_devourer_communion.cooling": "厄血：冷却中 %s 秒",
+
+  "item.aunique-epic.lake_light": "湖中剑·湖光",
+  "item.aunique-epic.lake_light.desc": "长按右键，吟唱骑士王的事迹。",
+  "item.aunique-epic.lake_light.rate": "吟唱完成后向前释放光剑，造成 %s 点伤害。",
+  "item.aunique-epic.lake_light.dual": "与石中剑双持时，伤害提升 50%。",
+  "item.aunique-epic.lake_light.hint": "中途松手会中断吟唱。",
+  "item.aunique-epic.lake_light.chant.0": "他曾拔起石中之剑，加冕为王。",
+  "item.aunique-epic.lake_light.chant.1": "他曾率圆桌骑士，平息大陆的纷争。",
+  "item.aunique-epic.lake_light.chant.2": "他曾冲向自天而降的似神者，再没有回来。",
+  "item.aunique-epic.lake_light.interrupted": "吟唱中断。",
+
+  "tag.item.aunique-epic.weapons": "史诗武器"
 }

@@ -1,6 +1,7 @@
 package com.famthys.uniqueepic.hero;
 
 import com.famthys.uniqueepic.AUniqueEpic;
+import com.famthys.uniqueepic.ModTags;
 import eu.pb4.trinkets.api.TrinketsApi;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
@@ -176,9 +177,18 @@ public final class HeroesExpeditionEffects {
 
     /* ==================== 内部实现 ==================== */
 
+    /**
+     * 主手拿的是不是武器。
+     *
+     * <p>必须带上本模组自己的 {@link ModTags#WEAPONS}：原版 {@code minecraft:swords} 是数据包标签，
+     * 只列了 7 把原版剑，自制武器不在里面——只判断原版标签的话，持自制武器时"决心"永远不触发。</p>
+     */
     private static boolean isHoldingWeapon(ServerPlayer player) {
         ItemStack mainHand = player.getMainHandItem();
-        return !mainHand.isEmpty() && (mainHand.is(ItemTags.SWORDS) || mainHand.is(ItemTags.AXES));
+        return !mainHand.isEmpty()
+                && (mainHand.is(ModTags.WEAPONS)
+                    || mainHand.is(ItemTags.SWORDS)
+                    || mainHand.is(ItemTags.AXES));
     }
 
     /**

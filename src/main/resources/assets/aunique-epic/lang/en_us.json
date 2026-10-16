@@ -53,5 +53,30 @@
   "item.aunique-epic.mutated_chestplate": "Mutated Chestplate",
   "item.aunique-epic.rampage_leggings": "Rampage Leggings",
   "item.aunique-epic.shattered_boots": "Shattered Boots",
-  "item.aunique-epic.marbas_fang": "Marbas' Fang"
+  "item.aunique-epic.marbas_fang": "Marbas' Fang",
+  "item.aunique-epic.marbas_fang.desc": "Each enemy slain grants +5% attack damage, up to 10 stacks.",
+  "item.aunique-epic.marbas_fang.stacks": "Stacks: %s / %s",
+  "item.aunique-epic.marbas_fang.bonus": "Current bonus: +%s%% attack damage",
+  "item.aunique-epic.marbas_fang.hint": "Active anywhere in your inventory · Right-click to equip in the Necklace slot",
+
+  "hud.aunique-epic.marbas": "Marbas' Fang  %s / %s",
+  "message.aunique-epic.marbas_stack": "Marbas' Fang: %s / %s stacks (+%s%% attack damage)",
+
+  "item.aunique-epic.heart_devourer_communion": "Heart-Devourer: Communion",
+  "item.aunique-epic.heart_devourer_communion.burst": "Blood Burst: true damage to all enemies within 15 blocks.",
+  "item.aunique-epic.heart_devourer_communion.revive": "Cheat death once and gain Regeneration II.",
+  "item.aunique-epic.heart_devourer_communion.ready": "Blood Burst: ready",
+  "item.aunique-epic.heart_devourer_communion.cooling": "Blood Burst: cooling down %ss",
+
+  "item.aunique-epic.lake_light": "Lake-Light",
+  "item.aunique-epic.lake_light.desc": "Hold right-click to chant the deeds of the King.",
+  "item.aunique-epic.lake_light.rate": "On completion, unleash a light sword dealing %s damage.",
+  "item.aunique-epic.lake_light.dual": "Deals 50% more damage when dual-wielded with the Sword in the Stone.",
+  "item.aunique-epic.lake_light.hint": "Releasing early interrupts the chant.",
+  "item.aunique-epic.lake_light.chant.0": "He drew the sword from the stone and was crowned king.",
+  "item.aunique-epic.lake_light.chant.1": "He led the Round Table and ended the wars of the realm.",
+  "item.aunique-epic.lake_light.chant.2": "He charged the Godlike who descended from the sky, and never returned.",
+  "item.aunique-epic.lake_light.interrupted": "Chant interrupted.",
+
+  "tag.item.aunique-epic.weapons": "Epic Weapons"
 }

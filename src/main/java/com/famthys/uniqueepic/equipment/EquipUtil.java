@@ -1,10 +1,14 @@
 package com.famthys.uniqueepic.equipment;
 
+import eu.pb4.trinkets.api.TrinketSlotAccess;
 import eu.pb4.trinkets.api.TrinketsApi;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.Optional;
 
 /**
  * 装备相关的通用判定。
@@ -19,16 +23,30 @@ public final class EquipUtil {
 
     /** 玩家是否持有（背包 / 快捷栏 / 盔甲槽 / 副手 / 饰品栏）。 */
     public static boolean carries(ServerPlayer player, Item item) {
+        return !findStack(player, item).isEmpty();
+    }
+
+    /**
+     * 找出玩家身上那件物品的<b>真实 ItemStack</b>（可直接写数据组件）。
+     *
+     * <p>先查 Trinkets 饰品栏，再扫背包 / 快捷栏 / 盔甲 / 副手。找不到返回
+     * {@link ItemStack#EMPTY}。</p>
+     */
+    public static ItemStack findStack(ServerPlayer player, Item item) {
         if (TrinketsApi.getAttachment(player).isEquipped(item)) {
-            return true;
+            Optional<TrinketSlotAccess> slot = TrinketsApi.getAttachment(player).findFirst(item);
+            if (slot.isPresent()) {
+                return slot.get().get();
+            }
         }
         Inventory inventory = player.getInventory();
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
-            if (inventory.getItem(slot).is(item)) {
-                return true;
+            ItemStack stack = inventory.getItem(slot);
+            if (stack.is(item)) {
+                return stack;
             }
         }
-        return false;
+        return ItemStack.EMPTY;
     }
 
     /** 玩家主手是否拿着该物品。 */

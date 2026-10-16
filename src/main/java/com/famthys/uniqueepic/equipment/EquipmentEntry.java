@@ -17,6 +17,7 @@ public final class EquipmentEntry {
     }
 
     public static void init() {
+        ModComponents.init();
         ModEquipmentItems.init();
 
         ServerLivingEntityEvents.AFTER_DAMAGE.register(EquipmentEntry::afterDamage);

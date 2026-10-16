@@ -12,6 +12,8 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 
+import java.util.function.Function;
+
 /**
  * 第一波 11 件装备的注册。
  *
@@ -57,7 +59,7 @@ public final class ModEquipmentItems {
 
     /* ==================== 五、玛尔巴斯之噬（护符） ==================== */
 
-    public static final Item MARBAS_FANG = registerNecklace("marbas_fang");
+    public static final Item MARBAS_FANG = registerNecklace("marbas_fang", MarbasFangItem::new);
 
     static {
         SWORD_IN_STONE = ModItems.register(
@@ -90,9 +92,9 @@ public final class ModEquipmentItems {
     }
 
     /** 护符：走 Trinkets 项链栏，同时右键可直接戴上。 */
-    private static Item registerNecklace(String name) {
+    private static Item registerNecklace(String name, Function<Item.Properties, Item> factory) {
         ResourceKey<Item> key = ModItemIds.create(name);
-        return ModItems.register(key, Item::new,
+        return ModItems.register(key, factory,
                 new Item.Properties()
                         .stacksTo(1)
                         .rarity(Rarity.RARE)

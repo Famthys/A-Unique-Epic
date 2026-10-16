@@ -5,6 +5,7 @@ import net.fabricmc.api.ClientModInitializer;
 public class AUniqueEpicClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
+		// 玛尔巴斯之噬的层数 HUD
+		MarbasHud.register();
 	}
 }

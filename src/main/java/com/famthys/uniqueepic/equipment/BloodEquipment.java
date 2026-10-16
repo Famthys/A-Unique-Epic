@@ -1,14 +1,18 @@
 package com.famthys.uniqueepic.equipment;
 
 import com.famthys.uniqueepic.AUniqueEpic;
-import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import eu.pb4.trinkets.api.TrinketSlotAccess;
+import eu.pb4.trinkets.api.TrinketsApi;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.Optional;
 
 /**
  * 厄血系装备：噬心大剑、厄血套装、玛尔巴斯之噬。
@@ -21,17 +25,6 @@ public final class BloodEquipment {
     private static final Identifier SET_DAMAGE_ID = AUniqueEpic.id("blood_set_damage");
     private static final Identifier SET_ARMOR_ID = AUniqueEpic.id("blood_set_armor");
     private static final Identifier MARBAS_DAMAGE_ID = AUniqueEpic.id("marbas_damage");
-
-    /**
-     * 玛尔巴斯之噬的叠加层数。
-     *
-     * <p>{@code copyOnDeath()} 让"击杀叠层"跨死亡保留——设定里没写死亡会清零，
-     * 而一个需要重新叠 10 层的饰品体验太差。</p>
-     */
-    public static final AttachmentType<Integer> MARBAS_STACKS = AttachmentRegistry
-            .<Integer>create(AUniqueEpic.id("marbas_stacks"), builder -> builder
-                    .persistent(Codec.INT)
-                    .copyOnDeath());
 
     /* ==================== 噬心大剑 ==================== */
 
@@ -97,34 +90,70 @@ public final class BloodEquipment {
 
     /* ==================== 玛尔巴斯之噬 ==================== */
 
-    /** 每击杀一名敌人叠一层。 */
+    /**
+     * 每击杀一名敌人叠一层。
+     *
+     * <p>顺带推一条动作栏提示——没有这个反馈，玩家根本察觉不到自己在变强，
+     * 这正是之前"效果不明显"的根因。</p>
+     */
     public static void onKill(ServerPlayer killer) {
-        if (!EquipUtil.carries(killer, ModEquipmentItems.MARBAS_FANG)) {
+        ItemStack fang = findFang(killer);
+        if (fang.isEmpty()) {
             return;
         }
-        int stacks = stacks(killer);
+        int stacks = fang.getOrDefault(ModComponents.MARBAS_STACKS, 0);
         if (stacks >= EquipConfig.marbasMaxStacks) {
             return;
         }
-        setStacks(killer, stacks + 1);
+
+        int next = stacks + 1;
+        fang.set(ModComponents.MARBAS_STACKS, next);
+
+        int bonus = (int) Math.round(next * EquipConfig.marbasPerStack * 100);
+        killer.sendOverlayMessage(Component.translatable(
+                        "message.aunique-epic.marbas_stack",
+                        next, EquipConfig.marbasMaxStacks, bonus)
+                .withStyle(ChatFormatting.GOLD));
     }
 
     /** 每秒把层数换算成攻击力加成。 */
     public static void tickMarbas(ServerPlayer player) {
-        if (!EquipUtil.carries(player, ModEquipmentItems.MARBAS_FANG)) {
+        ItemStack fang = findFang(player);
+        if (fang.isEmpty()) {
             EquipAttributes.clear(player, Attributes.ATTACK_DAMAGE, MARBAS_DAMAGE_ID);
             return;
         }
+        int stacks = fang.getOrDefault(ModComponents.MARBAS_STACKS, 0);
         EquipAttributes.set(player, Attributes.ATTACK_DAMAGE, MARBAS_DAMAGE_ID,
-                stacks(player) * EquipConfig.marbasPerStack,
+                stacks * EquipConfig.marbasPerStack,
                 AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 
-    public static int stacks(ServerPlayer player) {
-        return ((AttachmentTarget) player).getAttachedOrCreate(MARBAS_STACKS, () -> 0);
+    /**
+     * 找到玩家身上那件玛尔巴斯之噬：先看饰品栏，再看背包 / 快捷栏 / 盔甲 / 副手。
+     *
+     * @return 栏位里那个真实的 ItemStack（可直接写组件），没有就返回 {@link ItemStack#EMPTY}
+     */
+    public static ItemStack findFang(ServerPlayer player) {
+        if (TrinketsApi.getAttachment(player).isEquipped(ModEquipmentItems.MARBAS_FANG)) {
+            Optional<TrinketSlotAccess> slot =
+                    TrinketsApi.getAttachment(player).findFirst(ModEquipmentItems.MARBAS_FANG);
+            if (slot.isPresent()) {
+                return slot.get().get();
+            }
+        }
+        Inventory inventory = player.getInventory();
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (stack.is(ModEquipmentItems.MARBAS_FANG)) {
+                return stack;
+            }
+        }
+        return ItemStack.EMPTY;
     }
 
-    public static void setStacks(ServerPlayer player, int value) {
-        ((AttachmentTarget) player).setAttached(MARBAS_STACKS, Math.max(0, value));
+    public static int stacks(ServerPlayer player) {
+        ItemStack fang = findFang(player);
+        return fang.isEmpty() ? 0 : fang.getOrDefault(ModComponents.MARBAS_STACKS, 0);
     }
 }

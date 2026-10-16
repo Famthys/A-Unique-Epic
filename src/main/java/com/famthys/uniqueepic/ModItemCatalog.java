@@ -2,6 +2,7 @@ package com.famthys.uniqueepic;
 
 import com.famthys.uniqueepic.equipment.ModEquipmentItems;
 import com.famthys.uniqueepic.hero.ModHeroItems;
+import com.famthys.uniqueepic.secondwave.ModSecondWaveItems;
 import net.minecraft.world.item.Item;
 
 import java.util.List;
@@ -37,10 +38,14 @@ public final class ModItemCatalog {
 
                 // ---- 厄血 ----
                 ModEquipmentItems.HEART_DEVOURER,
+                ModSecondWaveItems.HEART_DEVOURER_COMMUNION,
                 ModEquipmentItems.FEROCIOUS_MASK,
                 ModEquipmentItems.MUTATED_CHESTPLATE,
                 ModEquipmentItems.RAMPAGE_LEGGINGS,
-                ModEquipmentItems.SHATTERED_BOOTS
+                ModEquipmentItems.SHATTERED_BOOTS,
+
+                // ---- 第二波 · 荣耀王 ----
+                ModSecondWaveItems.LAKE_LIGHT
         );
     }
 
