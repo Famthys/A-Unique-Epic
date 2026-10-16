@@ -1,0 +1,57 @@
+{
+  "itemGroup.aunique-epic.main": "A Unique Epic",
+
+  "chaos_eye.emotion.none": "Calm",
+  "chaos_eye.emotion.pleased": "Pleased",
+  "chaos_eye.emotion.bored": "Bored",
+  "chaos_eye.emotion.excited": "Excited",
+  "chaos_eye.emotion.disappointed": "Disappointed",
+  "chaos_eye.emotion.furious": "Furious",
+
+  "chaos_eye.line.infect": "...Found you. Hold still - this eye is mine now.",
+
+  "chaos_eye.line.pleased.0": "Does it hurt? Good. I do love watching you hurt.",
+  "chaos_eye.line.pleased.1": "Oh, you're bleeding. Interesting. Keep going.",
+  "chaos_eye.line.pleased.2": "You think pain is bad? Around here it's the entry ticket.",
+
+  "chaos_eye.line.bored.0": "Just standing there? I'm bored enough to make my own fun.",
+  "chaos_eye.line.bored.1": "All this time and nothing done. I'm falling asleep.",
+  "chaos_eye.line.bored.2": "Want me to find you some trouble? Silence counts as yes.",
+
+  "chaos_eye.line.excited.0": "Oh? Now this is a fight. I'm betting on you - don't lose me money.",
+  "chaos_eye.line.excited.1": "Yes, that's it! Hit harder!",
+  "chaos_eye.line.excited.2": "Blood tastes good, doesn't it? I can smell it.",
+
+  "chaos_eye.line.disappointed.0": "You ran? I thought you had at least some spine.",
+  "chaos_eye.line.disappointed.1": "Took a hit and didn't swing back. Pathetic.",
+  "chaos_eye.line.disappointed.2": "How dull. Even the dice are blushing for you.",
+
+  "chaos_eye.line.furious.0": "You died. ...Fine. I'm putting this on your tab.",
+  "chaos_eye.line.furious.1": "One death, is that all? It matters. I hold grudges.",
+  "chaos_eye.line.furious.2": "Get up. You still owe me.",
+
+  "item.aunique-epic.heroes_expedition": "Hero's Expedition",
+  "item.aunique-epic.heroes_expedition.silence": "Carry it, and the Eye of Chaos will look away.",
+  "item.aunique-epic.heroes_expedition.resolve.name": "Resolve",
+  "item.aunique-epic.heroes_expedition.resolve.desc": "Strength while armed, but hunger drains faster",
+  "item.aunique-epic.heroes_expedition.unbroken.name": "Unbroken",
+  "item.aunique-epic.heroes_expedition.unbroken.desc": "Kill at half health for brief Regeneration",
+  "item.aunique-epic.heroes_expedition.burden.name": "Burden",
+  "item.aunique-epic.heroes_expedition.burden.desc": "Armor only 60% effective, damage taken doubled",
+  "item.aunique-epic.heroes_expedition.crisis.name": "Crisis",
+  "item.aunique-epic.heroes_expedition.crisis.desc": "Debuffs -25% duration, but fire and venom kill",
+  "item.aunique-epic.heroes_expedition.hint": "Active anywhere in your inventory · Right-click to equip in the Necklace slot",
+
+  "item.aunique-epic.heart_devourer": "Heart-Devourer",
+  "item.aunique-epic.sword_in_stone": "Sword in the Stone",
+  "item.aunique-epic.sword_in_stone.kings_awe": "King's Awe cowed %s enemies.",
+  "item.aunique-epic.round_table_helmet": "Knight's Helm",
+  "item.aunique-epic.oath_chestplate": "Oathbound Chestplate",
+  "item.aunique-epic.glory_leggings": "Leggings of Glory",
+  "item.aunique-epic.expedition_boots": "Expedition Boots",
+  "item.aunique-epic.ferocious_mask": "Ferocious Mask",
+  "item.aunique-epic.mutated_chestplate": "Mutated Chestplate",
+  "item.aunique-epic.rampage_leggings": "Rampage Leggings",
+  "item.aunique-epic.shattered_boots": "Shattered Boots",
+  "item.aunique-epic.marbas_fang": "Marbas' Fang"
+}

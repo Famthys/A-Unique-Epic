@@ -1,0 +1,57 @@
+{
+  "itemGroup.aunique-epic.main": "别样的史诗",
+
+  "chaos_eye.emotion.none": "平静",
+  "chaos_eye.emotion.pleased": "愉悦",
+  "chaos_eye.emotion.bored": "无聊",
+  "chaos_eye.emotion.excited": "兴奋",
+  "chaos_eye.emotion.disappointed": "失望",
+  "chaos_eye.emotion.furious": "暴怒",
+
+  "chaos_eye.line.infect": "……找到了。别动，这颗眼睛从现在起归我。",
+
+  "chaos_eye.line.pleased.0": "疼吗？疼就对了，我最喜欢看你疼。",
+  "chaos_eye.line.pleased.1": "哦，流血了。有意思，继续。",
+  "chaos_eye.line.pleased.2": "你以为痛苦是坏事？在我这儿它是入场券。",
+
+  "chaos_eye.line.bored.0": "你就这么站着？无聊得我想自己找点乐子。",
+  "chaos_eye.line.bored.1": "这么久什么都没干，我快睡着了。",
+  "chaos_eye.line.bored.2": "要不要我帮你找点麻烦？不回答就当默认了。",
+
+  "chaos_eye.line.excited.0": "哦？这架有意思。我押你赢——别让我亏。",
+  "chaos_eye.line.excited.1": "对，就是这样！打得再狠一点！",
+  "chaos_eye.line.excited.2": "血的味道不错吧？我闻到了。",
+
+  "chaos_eye.line.disappointed.0": "跑了？我还以为你至少有点骨气。",
+  "chaos_eye.line.disappointed.1": "挨了打不敢还手，你这算什么。",
+  "chaos_eye.line.disappointed.2": "真扫兴，骰子都替你脸红。",
+
+  "chaos_eye.line.furious.0": "你死了。……行吧，这笔账记你头上。",
+  "chaos_eye.line.furious.1": "死一次而已，至于吗？至于。我记仇。",
+  "chaos_eye.line.furious.2": "起来。你欠我的还没还。",
+
+  "item.aunique-epic.heroes_expedition": "勇者之征",
+  "item.aunique-epic.heroes_expedition.silence": "带在身上，混沌之眸将不再注视你。",
+  "item.aunique-epic.heroes_expedition.resolve.name": "决心",
+  "item.aunique-epic.heroes_expedition.resolve.desc": "持武器时获得力量，但饥饿加速下降",
+  "item.aunique-epic.heroes_expedition.unbroken.name": "不屈",
+  "item.aunique-epic.heroes_expedition.unbroken.desc": "半血时击杀敌人，换取短暂生命恢复",
+  "item.aunique-epic.heroes_expedition.burden.name": "重担",
+  "item.aunique-epic.heroes_expedition.burden.desc": "护甲仅 60% 生效，受伤翻倍",
+  "item.aunique-epic.heroes_expedition.crisis.name": "危机",
+  "item.aunique-epic.heroes_expedition.crisis.desc": "负面效果 -25%，但火焰与毒液致命",
+  "item.aunique-epic.heroes_expedition.hint": "放在背包或快捷栏即可生效 · 也可右键装入项链槽",
+
+  "item.aunique-epic.heart_devourer": "噬心大剑",
+  "item.aunique-epic.sword_in_stone": "石中剑",
+  "item.aunique-epic.sword_in_stone.kings_awe": "王威震慑了 %s 个敌人。",
+  "item.aunique-epic.round_table_helmet": "骑士盔",
+  "item.aunique-epic.oath_chestplate": "誓约胸甲",
+  "item.aunique-epic.glory_leggings": "荣光护腿",
+  "item.aunique-epic.expedition_boots": "远征之靴",
+  "item.aunique-epic.ferocious_mask": "狰狞面具",
+  "item.aunique-epic.mutated_chestplate": "异化胸甲",
+  "item.aunique-epic.rampage_leggings": "暴走护腿",
+  "item.aunique-epic.shattered_boots": "碎裂之靴",
+  "item.aunique-epic.marbas_fang": "玛尔巴斯之噬"
+}

@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "com.famthys.uniqueepic.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"ExampleMixin",
+		"LivingEntityDamageMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

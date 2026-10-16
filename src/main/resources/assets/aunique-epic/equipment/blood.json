@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "aunique-epic:blood"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "aunique-epic:blood"
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "aunique-epic",
+	"version": "${version}",
+	"name": "AUnique-Epic",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/aunique-epic/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.famthys.uniqueepic.AUniqueEpic"
+		],
+		"client": [
+			"com.famthys.uniqueepic.client.AUniqueEpicClient"
+		]
+	},
+	"mixins": [
+		"aunique-epic.mixins.json",
+		{
+			"config": "aunique-epic.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*",
+		"trinkets_updated": ">=4.1.1"
+	}
+}

@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "aunique-epic:knight"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "aunique-epic:knight"
+      }
+    ]
+  }
+}
