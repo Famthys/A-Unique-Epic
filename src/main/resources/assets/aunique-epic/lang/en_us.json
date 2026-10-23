@@ -57,10 +57,29 @@
   "item.aunique-epic.marbas_fang.desc": "Each enemy slain grants +5% attack damage, up to 10 stacks.",
   "item.aunique-epic.marbas_fang.stacks": "Stacks: %s / %s",
   "item.aunique-epic.marbas_fang.bonus": "Current bonus: +%s%% attack damage",
+  "item.aunique-epic.marbas_fang.satiety": "Satiety: %s / %s",
+  "item.aunique-epic.marbas_fang.parasite": "It is alive: feed it by killing; when full it blocks one lethal blow; when starving it bites you.",
   "item.aunique-epic.marbas_fang.hint": "Active anywhere in your inventory · Right-click to equip in the Necklace slot",
 
-  "hud.aunique-epic.marbas": "Marbas' Fang  %s / %s",
-  "message.aunique-epic.marbas_stack": "Marbas' Fang: %s / %s stacks (+%s%% attack damage)",
+  "hud.aunique-epic.marbas": "Marbas' Fang  %s / %s stacks  satiety %s / %s",
+  "hud.aunique-epic.hunger": "Hunger %s%%",
+  "message.aunique-epic.marbas_stack": "Marbas' Fang: %s / %s stacks (+%s%% damage) - satiety %s / %s",
+  "message.aunique-epic.marbas_block": "Marbas' Fang swallowed the blow.",
+  "message.aunique-epic.marbas_starving": "Marbas' Fang is starving and biting you.",
+
+  "item.aunique-epic.heart_devourer.hunger": "Hunger: the emptier you are, the harder it bites (+6% damage per missing drumstick).",
+  "item.aunique-epic.heart_devourer.hunger_full": "When you are well fed it resents you: -20% damage and it may bite you.",
+  "item.aunique-epic.heart_devourer.hunger_hint": "Each hit drains extra hunger.",
+  "message.aunique-epic.hunger_bite": "The Heart-Devourer bit you - you are too well fed.",
+
+  "item.aunique-epic.blood_set.set_bonus": "[Blood Set] Wear all four: Blood Debt",
+  "item.aunique-epic.blood_set.debt": "Damage you take is not applied at once - it is recorded as Blood Debt.",
+  "item.aunique-epic.blood_set.debt_pay": "Damage you deal pays the debt off; clearing it bursts blood mist and heals you.",
+  "item.aunique-epic.blood_set.debt_settle": "If debt reaches its cap it is settled all at once - possibly fatally.",
+  "item.aunique-epic.blood_set.hint": "More debt means more armor.",
+  "message.aunique-epic.debt": "Blood Debt %s / %s",
+  "message.aunique-epic.debt_settled": "Blood Debt settled at once: %s!",
+  "message.aunique-epic.debt_cleared": "Blood Debt cleared.",
 
   "item.aunique-epic.heart_devourer_communion": "Heart-Devourer: Communion",
   "item.aunique-epic.heart_devourer_communion.burst": "Blood Burst: true damage to all enemies within 15 blocks.",
@@ -78,5 +97,9 @@
   "item.aunique-epic.lake_light.chant.2": "He charged the Godlike who descended from the sky, and never returned.",
   "item.aunique-epic.lake_light.interrupted": "Chant interrupted.",
 
-  "tag.item.aunique-epic.weapons": "Epic Weapons"
+  "tag.item.aunique-epic.weapons": "Epic Weapons",
+
+  "block.aunique-epic.sword_in_stone_sealed": "Sword in the Stone (Sealed)",
+  "message.aunique-epic.sword_drawn": "You drew the Sword in the Stone.",
+  "message.aunique-epic.sword_already_taken": "The sword is gone - only an empty pedestal remains."
 }

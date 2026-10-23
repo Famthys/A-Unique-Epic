@@ -10,6 +10,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -42,10 +45,20 @@ public final class BloodBurst {
                         && !(candidate instanceof Player)
                         && !isPlayersPet(player, candidate));
 
+        double drained = 0.0D;
         for (LivingEntity target : targets) {
             target.invulnerableTime = 0;   // 爆发应当必定命中，不受无敌帧影响
             target.hurtServer(level, level.damageSources().indirectMagic(player, player),
                     SecondWaveConfig.communionBurstDamage);
+            drained += drainMaxHealth(target);
+        }
+
+        // ---- 抽来的生命喂给自己（"共噬"的字面意思）----
+        if (drained > 0.0D) {
+            float heal = (float) (drained * SecondWaveConfig.communionDrainHealRatio);
+            if (heal > 0.0F) {
+                player.heal(heal);
+            }
         }
 
         // ---- 粒子：以玩家为中心铺散开来 ----
@@ -54,6 +67,47 @@ public final class BloodBurst {
         // ---- 音效 ----
         level.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.WITHER_HURT, SoundSource.PLAYERS, 1.2F, 0.6F);
+    }
+
+    /** 抽取生命上限用的固定修饰符 id。 */
+    private static final net.minecraft.resources.Identifier DRAIN_ID =
+            com.famthys.uniqueepic.AUniqueEpic.id("communion_drain");
+
+    /**
+     * 从一个目标身上抽走一部分生命上限，喂给玩家。
+     *
+     * <p>抽取是<b>永久</b>的（直到它死），所以加了双重封顶：单次抽取有上限，
+     * 单个目标被抽的总量也不超过其基础生命上限的 {@code communionDrainTotalCap}。
+     * 否则对 Boss 反复使用会把它的血条抽没。</p>
+     *
+     * @return 实际抽到的点数
+     */
+    private static double drainMaxHealth(LivingEntity target) {
+        AttributeInstance instance = target.getAttribute(Attributes.MAX_HEALTH);
+        if (instance == null) {
+            return 0.0D;
+        }
+
+        double base = Math.max(1.0D, instance.getBaseValue());
+        double totalCap = base * SecondWaveConfig.communionDrainTotalCap;
+        AttributeModifier existing = instance.getModifier(DRAIN_ID);
+        double alreadyDrained = existing == null ? 0.0D : -existing.amount();
+
+        double want = Math.min(target.getMaxHealth() * SecondWaveConfig.communionDrainRatio,
+                SecondWaveConfig.communionDrainCap);
+        double newTotal = Math.min(alreadyDrained + want, totalCap);
+        double gained = newTotal - alreadyDrained;
+        if (gained <= 0.0D) {
+            return 0.0D;
+        }
+
+        // 必须先移除再加：MC 的同 id 修饰符是"已存在就抛异常"而不是替换
+        if (existing != null) {
+            instance.removeModifier(DRAIN_ID);
+        }
+        instance.addTransientModifier(new AttributeModifier(
+                DRAIN_ID, -newTotal, AttributeModifier.Operation.ADD_VALUE));
+        return gained;
     }
 
     /**

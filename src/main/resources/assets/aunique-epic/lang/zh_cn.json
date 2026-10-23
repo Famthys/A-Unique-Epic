@@ -57,10 +57,29 @@
   "item.aunique-epic.marbas_fang.desc": "每击杀一名敌人，攻击力 +5%，最多叠 10 层。",
   "item.aunique-epic.marbas_fang.stacks": "当前层数：%s / %s",
   "item.aunique-epic.marbas_fang.bonus": "当前加成：+%s%% 攻击力",
+  "item.aunique-epic.marbas_fang.satiety": "饱食度：%s / %s",
+  "item.aunique-epic.marbas_fang.parasite": "它是个活物：击杀喂它；吃饱了能替你挡下致命一击；饿到 0 会反过来啃你的血。",
   "item.aunique-epic.marbas_fang.hint": "带在身上即可生效 · 也可右键装入项链槽",
 
-  "hud.aunique-epic.marbas": "玛尔巴斯之噬　%s / %s 层",
-  "message.aunique-epic.marbas_stack": "玛尔巴斯之噬：%s / %s 层（+%s%% 攻击力）",
+  "hud.aunique-epic.marbas": "玛尔巴斯之噬　%s / %s 层　饱食 %s / %s",
+  "hud.aunique-epic.hunger": "饥渴 %s%%",
+  "message.aunique-epic.marbas_stack": "玛尔巴斯之噬：%s / %s 层（+%s%% 攻击力）· 饱食 %s / %s",
+  "message.aunique-epic.marbas_block": "玛尔巴斯之噬吞下了这一击。",
+  "message.aunique-epic.marbas_starving": "玛尔巴斯之噬饿极了，正在啃你。",
+
+  "item.aunique-epic.heart_devourer.hunger": "饥渴：你越饿，它越强（每缺 1 格饥饿 +6% 伤害）。",
+  "item.aunique-epic.heart_devourer.hunger_full": "但满饱食时它会嫌弃你：伤害 -20%，并可能咬你一口。",
+  "item.aunique-epic.heart_devourer.hunger_hint": "命中会额外消耗你的饥饿值。",
+  "message.aunique-epic.hunger_bite": "噬心大剑咬了你一口——它嫌你吃太饱。",
+
+  "item.aunique-epic.blood_set.set_bonus": "【厄血套装】穿齐四件触发：血债",
+  "item.aunique-epic.blood_set.debt": "受到的伤害不立刻扣血，而是记成「血债」。",
+  "item.aunique-epic.blood_set.debt_pay": "你打出的伤害会抵扣血债；还清时爆血雾并回血。",
+  "item.aunique-epic.blood_set.debt_settle": "血债堆到上限会一次性全部结算——可能当场暴毙。",
+  "item.aunique-epic.blood_set.hint": "债越多，护甲越高。",
+  "message.aunique-epic.debt": "血债 %s / %s",
+  "message.aunique-epic.debt_settled": "血债一次性结算：%s 点！",
+  "message.aunique-epic.debt_cleared": "血债还清。",
 
   "item.aunique-epic.heart_devourer_communion": "噬心大剑·共噬",
   "item.aunique-epic.heart_devourer_communion.burst": "厄血爆发：以你为中心，对 15 格内的敌人造成真实伤害。",
@@ -78,5 +97,15 @@
   "item.aunique-epic.lake_light.chant.2": "他曾冲向自天而降的似神者，再没有回来。",
   "item.aunique-epic.lake_light.interrupted": "吟唱中断。",
 
-  "tag.item.aunique-epic.weapons": "史诗武器"
+  "tag.item.aunique-epic.weapons": "史诗武器",
+
+  "block.aunique-epic.sword_in_stone_sealed": "石中剑（封印）",
+  "message.aunique-epic.sword_drawn": "你拔出了石中剑。",
+  "message.aunique-epic.sword_already_taken": "剑已经被拔走了——只剩一座空石座。",
+
+  "entity.aunique-epic.crimson_knight": "猩红骑",
+  "item.aunique-epic.crimson_knight_spawn_egg": "猩红骑刷怪蛋",
+
+  "entity.aunique-epic.human_faced_dog": "人面犬",
+  "item.aunique-epic.human_faced_dog_spawn_egg": "人面犬刷怪蛋"
 }

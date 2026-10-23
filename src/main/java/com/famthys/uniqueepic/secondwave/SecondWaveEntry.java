@@ -1,11 +1,13 @@
 package com.famthys.uniqueepic.secondwave;
 
 import com.famthys.uniqueepic.AUniqueEpic;
+import com.famthys.uniqueepic.equipment.BloodEquipment;
+import com.famthys.uniqueepic.equipment.EquipConfig;
 import com.famthys.uniqueepic.equipment.ModComponents;
-import com.famthys.uniqueepic.equipment.ModEquipmentItems;
-import com.famthys.uniqueepic.item.ModItemIds;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,7 +34,10 @@ public final class SecondWaveEntry {
     }
 
     /**
-     * 免死拦截。
+     * 免死拦截，两级保险。
+     *
+     * <p>先试共噬（强度高但冷却长），再试玛尔巴斯之噬（消耗饱食度，是"养出来"的资源）。
+     * 两个都不满足就正常死。</p>
      *
      * @return {@code true} 允许死亡；{@code false} 拦下这次死亡
      */
@@ -41,18 +46,31 @@ public final class SecondWaveEntry {
             return true;
         }
 
-        ItemStack stack = findCommunion(player);
-        if (stack.isEmpty()) {
-            return true;
-        }
-        // 冷却中 → 正常死
-        if (stack.getOrDefault(ModComponents.COMMUNION_COOLDOWN, 0) > 0) {
-            return true;
+        // ① 噬心大剑·共噬
+        ItemStack communion = findCommunion(player);
+        if (!communion.isEmpty()
+                && communion.getOrDefault(ModComponents.COMMUNION_COOLDOWN, 0) <= 0) {
+            communion.set(ModComponents.COMMUNION_COOLDOWN, SecondWaveConfig.communionCooldown);
+            BloodBurst.revive(player);
+            return false;
         }
 
-        stack.set(ModComponents.COMMUNION_COOLDOWN, SecondWaveConfig.communionCooldown);
-        BloodBurst.revive(player);
-        return false;
+        // ② 玛尔巴斯之噬：吃饱了才肯替你挡刀
+        ItemStack fang = BloodEquipment.findFang(player);
+        if (!fang.isEmpty()) {
+            int satiety = fang.getOrDefault(ModComponents.MARBAS_SATIETY, 0);
+            if (satiety >= EquipConfig.marbasSatietyBlockCost) {
+                fang.set(ModComponents.MARBAS_SATIETY,
+                        satiety - EquipConfig.marbasSatietyBlockCost);
+                player.setHealth(EquipConfig.marbasBlockReviveHealth);
+                player.sendOverlayMessage(Component.translatable(
+                                "message.aunique-epic.marbas_block")
+                        .withStyle(ChatFormatting.GOLD));
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /** 每秒把冷却往下推一格。 */
@@ -67,6 +85,9 @@ public final class SecondWaveEntry {
         }
 
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            // 湖光吟唱：锁移动 / 解除
+            LakeLightItem.tickChant(player);
+
             ItemStack stack = findCommunion(player);
             if (stack.isEmpty()) {
                 continue;

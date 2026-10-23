@@ -20,6 +20,11 @@ public final class EquipmentEntry {
         ModComponents.init();
         ModEquipmentItems.init();
 
+        // 强制加载 BloodDebt，让 blood_debt 这个 attachment 在这里就注册好。
+        // 不这么做的话，登录时读玩家数据会早于类初始化，服务端会报
+        // "Found unknown attachment type aunique-epic:blood_debt" 并把血债数值直接丢掉。
+        BloodDebt.DEBT.hashCode();
+
         ServerLivingEntityEvents.AFTER_DAMAGE.register(EquipmentEntry::afterDamage);
         ServerLivingEntityEvents.AFTER_DEATH.register(EquipmentEntry::afterDeath);
         ServerTickEvents.END_SERVER_TICK.register(EquipmentEntry::endServerTick);
@@ -33,7 +38,10 @@ public final class EquipmentEntry {
             return;
         }
         if (source.getEntity() instanceof ServerPlayer attacker && attacker != entity) {
-            BloodEquipment.onDealDamage(attacker, damageTaken);
+            // 噬心大剑：命中吃饥饿 / 满饱食咬人
+            BloodEquipment.onGreatswordHit(attacker);
+            // 厄血套装：打出去的伤害抵扣血债
+            BloodDebt.pay(attacker, damageTaken);
         }
     }
 
@@ -54,10 +62,11 @@ public final class EquipmentEntry {
         }
 
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            BloodEquipment.tickSet(player);
+            BloodEquipment.tickGreatsword(player);
             BloodEquipment.tickMarbas(player);
+            BloodEquipment.tickSet(player);
+            BloodDebt.tick(player, gameTime);
             GloryEquipment.tickSet(player);
-            BloodEquipment.backlash(player, gameTime);
         }
     }
 }

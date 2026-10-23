@@ -17,13 +17,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
- * 玛尔巴斯之噬的层数 HUD。
+ * 装备状态 HUD：把"物品自己的资源"直接画在快捷栏上方。
  *
- * <p>层数存在物品的数据组件里，而数据组件会随物品栏同步到客户端，所以这里能直接读到，
- * 不需要任何自定义网络包。</p>
+ * <p>这些数值都存在<b>物品的数据组件</b>里（层数、饱食度），而组件会随物品栏同步到客户端，
+ * 所以这里能直接读，一行网络代码都不用写。噬心大剑的饥渴加成则读客户端玩家自己的饱食度。</p>
  */
 public final class MarbasHud {
 
@@ -34,7 +36,7 @@ public final class MarbasHud {
         // 挂在快捷栏之后，位置就在快捷栏上方
         HudElementRegistry.attachElementAfter(
                 VanillaHudElements.HOTBAR,
-                AUniqueEpic.id("marbas_hud"),
+                AUniqueEpic.id("equipment_hud"),
                 MarbasHud::extract);
     }
 
@@ -44,26 +46,52 @@ public final class MarbasHud {
         if (player == null) {
             return;
         }
-        // 刻意不检查"GUI 是否隐藏"和"是否开着界面"：这个元素是在原版 HUD 管线里跑的，
-        // 原版自己会决定该不该画。26.2 里那两个字段也改名了，与其猜，不如交给管线。
+        // 刻意不检查"GUI 是否隐藏"和"是否开着界面"：这个元素跑在原版 HUD 管线里，
+        // 该不该画由原版决定。26.2 里那两个字段也改名了，与其猜不如交给管线。
 
+        List<Component> lines = new ArrayList<>(2);
+
+        // ---- 玛尔巴斯之噬：层数 + 饱食度 ----
         ItemStack fang = findFang(player);
-        if (fang.isEmpty()) {
-            return;
+        if (!fang.isEmpty()) {
+            int stacks = fang.getOrDefault(ModComponents.MARBAS_STACKS, 0);
+            int satiety = fang.getOrDefault(ModComponents.MARBAS_SATIETY, 0);
+            boolean canBlock = satiety >= EquipConfig.marbasSatietyBlockCost;
+            lines.add(Component.translatable("hud.aunique-epic.marbas",
+                            stacks, EquipConfig.marbasMaxStacks,
+                            satiety, EquipConfig.marbasSatietyMax)
+                    .withStyle(canBlock ? ChatFormatting.GOLD
+                            : (satiety <= 0 ? ChatFormatting.DARK_RED : ChatFormatting.GRAY)));
         }
 
-        int stacks = fang.getOrDefault(ModComponents.MARBAS_STACKS, 0);
-        int max = EquipConfig.marbasMaxStacks;
+        // ---- 噬心大剑：当前饥渴加成 ----
+        if (player.getMainHandItem().is(ModEquipmentItems.HEART_DEVOURER)) {
+            int food = player.getFoodData().getFoodLevel();
+            int percent;
+            if (food >= 20) {
+                percent = (int) Math.round(EquipConfig.hungerFullPenalty * 100);
+            } else {
+                double missing = (20 - food) / 2.0D;
+                percent = (int) Math.round(missing * EquipConfig.hungerPerDrumstickBonus * 100);
+            }
+            lines.add(Component.translatable("hud.aunique-epic.hunger", percent)
+                    .withStyle(percent >= 0 ? ChatFormatting.RED : ChatFormatting.DARK_RED));
+        }
 
-        Component line = Component.translatable("hud.aunique-epic.marbas", stacks, max)
-                .withStyle(stacks > 0 ? ChatFormatting.GOLD : ChatFormatting.GRAY);
+        if (lines.isEmpty()) {
+            return;
+        }
 
         int screenWidth = client.getWindow().getGuiScaledWidth();
         int screenHeight = client.getWindow().getGuiScaledHeight();
 
-        // 居中、压在快捷栏正上方
-        int textWidth = client.font.width(line);
-        graphics.text(client.font, line, (screenWidth - textWidth) / 2, screenHeight - 55, 0xFFFFFFFF);
+        // 居中、压在快捷栏正上方；多行往上堆
+        int y = screenHeight - 55 - (lines.size() - 1) * 10;
+        for (Component line : lines) {
+            int textWidth = client.font.width(line);
+            graphics.text(client.font, line, (screenWidth - textWidth) / 2, y, 0xFFFFFFFF);
+            y += 10;
+        }
     }
 
     /** 客户端侧找物品：只读背包与饰品栏，不做任何写入。 */

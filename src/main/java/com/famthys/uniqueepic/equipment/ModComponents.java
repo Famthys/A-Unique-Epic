@@ -44,7 +44,20 @@ public final class ModComponents {
                     .networkSynchronized(ByteBufCodecs.VAR_INT)
                     .build());
 
+    /**
+     * 玛尔巴斯之噬的「饱食度」。
+     *
+     * <p>它是个活物：击杀喂它，吃饱了能替你挡下致命一击，饿极了反过来啃你的血。</p>
+     */
+    public static final DataComponentType<Integer> MARBAS_SATIETY = Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            AUniqueEpic.id("marbas_satiety"),
+            DataComponentType.<Integer>builder()
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT)
+                    .build());
+
     public static void init() {
-        AUniqueEpic.LOGGER.debug("[组件] marbas_stacks / communion_cooldown 已注册");
+        AUniqueEpic.LOGGER.debug("[组件] marbas_stacks / marbas_satiety / communion_cooldown 已注册");
     }
 }

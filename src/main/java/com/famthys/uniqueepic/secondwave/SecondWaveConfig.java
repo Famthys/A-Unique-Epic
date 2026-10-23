@@ -67,4 +67,29 @@ public final class SecondWaveConfig {
 
     /** 粒子密度系数。 */
     public static double lakeLightParticleDensity = 1.0D;
+
+    /* ==================== 湖光 · 补强 ==================== */
+
+    /** 吟唱期间的受伤倍率（0.5 = 减半）。 */
+    public static float lakeLightChantDamageMultiplier = 0.5F;
+
+    /** 吟唱期间是否锁死移动。 */
+    public static boolean lakeLightChantImmobile = true;
+
+    /* ==================== 共噬 · 补强 ==================== */
+
+    /** 免死爆发时，从每个敌人身上抽取的最大生命比例。 */
+    public static double communionDrainRatio = 0.10D;
+
+    /** 单次抽取的上限（点）。 */
+    public static double communionDrainCap = 20.0D;
+
+    /** 单个目标被抽取的总上限（占其基础生命上限的比例）。 */
+    public static double communionDrainTotalCap = 0.30D;
+
+    /** 抽取到的生命值有多少转化为你的治疗。 */
+    public static float communionDrainHealRatio = 0.5F;
+
+    /** 被抽取的生命上限持续多久（tick）。 */
+    public static int communionDrainDuration = 30 * 20;
 }

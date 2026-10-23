@@ -1,5 +1,8 @@
 package com.famthys.uniqueepic;
 
+import com.famthys.uniqueepic.block.ModBlocks;
+import com.famthys.uniqueepic.boss.ModBossEntities;
+import com.famthys.uniqueepic.dog.ModDogEntities;
 import com.famthys.uniqueepic.equipment.ModEquipmentItems;
 import com.famthys.uniqueepic.hero.ModHeroItems;
 import com.famthys.uniqueepic.secondwave.ModSecondWaveItems;
@@ -45,7 +48,16 @@ public final class ModItemCatalog {
                 ModEquipmentItems.SHATTERED_BOOTS,
 
                 // ---- 第二波 · 荣耀王 ----
-                ModSecondWaveItems.LAKE_LIGHT
+                ModSecondWaveItems.LAKE_LIGHT,
+
+                // ---- 方块 ----
+                ModBlocks.SWORD_IN_STONE_SEALED_ITEM,
+
+                // ---- Boss ----
+                ModBossEntities.CRIMSON_KNIGHT_SPAWN_EGG,
+
+                // ---- 怪物 ----
+                ModDogEntities.HUMAN_FACED_DOG_SPAWN_EGG
         );
     }
 

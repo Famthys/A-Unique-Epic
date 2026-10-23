@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "sealed=true": {
+      "model": "aunique-epic:block/sword_in_stone_sealed"
+    },
+    "sealed=false": {
+      "model": "aunique-epic:block/sword_in_stone_empty"
+    }
+  }
+}

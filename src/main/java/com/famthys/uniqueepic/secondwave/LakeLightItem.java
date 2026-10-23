@@ -65,6 +65,10 @@ public class LakeLightItem extends Item {
         if (!(living instanceof ServerPlayer player)) {
             return;
         }
+
+        // 吟唱期间钉在原地——这是代价，换来的是受伤减半（见 IncomingDamage）
+        tickChant(player);
+
         int interval = SecondWaveConfig.lakeLightLineInterval;
         if (interval <= 0) {
             return;
@@ -79,6 +83,36 @@ public class LakeLightItem extends Item {
         }
         player.sendOverlayMessage(Component.translatable(KEY + "chant." + line)
                 .withStyle(ChatFormatting.AQUA));
+    }
+
+    /* ==================== 吟唱状态 ==================== */
+
+    private static final net.minecraft.resources.Identifier CHANT_ROOT_ID =
+            com.famthys.uniqueepic.AUniqueEpic.id("lake_light_chant_root");
+
+    /** 玩家是否正在吟唱（受伤减伤也靠这个判断，所以放在这里当唯一真相）。 */
+    public static boolean isChanting(Player player) {
+        return player.isUsingItem()
+                && player.getUseItem().is(ModSecondWaveItems.LAKE_LIGHT);
+    }
+
+    /**
+     * 每秒维护吟唱状态：吟唱时锁死移动，否则解除。
+     *
+     * <p>用"每秒重算"而不是"开始/结束钩子"：玩家中途死亡、掉线、被别的模组打断时钩子都可能不触发，
+     * 重算永远是对的——否则玩家会被永久钉在原地。</p>
+     */
+    public static void tickChant(ServerPlayer player) {
+        if (!SecondWaveConfig.lakeLightChantImmobile || !isChanting(player)) {
+            com.famthys.uniqueepic.equipment.EquipAttributes.clear(
+                    player, net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED,
+                    CHANT_ROOT_ID);
+            return;
+        }
+        com.famthys.uniqueepic.equipment.EquipAttributes.set(
+                player, net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED,
+                CHANT_ROOT_ID, -1.0D,
+                net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 
     /** 吟唱完成：释放光剑。 */

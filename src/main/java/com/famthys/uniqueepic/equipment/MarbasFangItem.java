@@ -33,14 +33,20 @@ public class MarbasFangItem extends Item {
 
         int stacks = stack.getOrDefault(ModComponents.MARBAS_STACKS, 0);
         int bonus = (int) Math.round(stacks * EquipConfig.marbasPerStack * 100);
+        int satiety = stack.getOrDefault(ModComponents.MARBAS_SATIETY, 0);
+        boolean canBlock = satiety >= EquipConfig.marbasSatietyBlockCost;
 
         collector.accept(Component.empty());
         collector.accept(Component.translatable(KEY + "stacks", stacks, EquipConfig.marbasMaxStacks)
                 .withStyle(stacks > 0 ? ChatFormatting.GOLD : ChatFormatting.DARK_GRAY));
         collector.accept(Component.translatable(KEY + "bonus", bonus)
                 .withStyle(stacks > 0 ? ChatFormatting.GOLD : ChatFormatting.DARK_GRAY));
+        collector.accept(Component.translatable(KEY + "satiety",
+                        satiety, EquipConfig.marbasSatietyMax)
+                .withStyle(canBlock ? ChatFormatting.GREEN : ChatFormatting.DARK_RED));
 
         collector.accept(Component.empty());
+        collector.accept(Component.translatable(KEY + "parasite").withStyle(ChatFormatting.GRAY));
         collector.accept(Component.translatable(KEY + "hint").withStyle(ChatFormatting.DARK_GRAY));
     }
 }

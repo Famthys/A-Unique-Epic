@@ -67,4 +67,58 @@ public final class EquipConfig {
 
     /** 最大层数。 */
     public static int marbasMaxStacks = 10;
+
+    /* ==================== 噬心大剑 · 饥渴 ==================== */
+
+    /** 每缺 1 格饥饿（2 点饱食度）提供的伤害加成。 */
+    public static double hungerPerDrumstickBonus = 0.06D;
+
+    /** 每次命中额外消耗的饥饿值（消耗度，4.0 约等于 1 点饱食度）。 */
+    public static float hungerCostPerHit = 3.0F;
+
+    /** 满饱食时的伤害惩罚（负数）。 */
+    public static double hungerFullPenalty = -0.20D;
+
+    /** 满饱食时剑"咬你"的概率。 */
+    public static float hungerBiteChance = 0.25F;
+
+    /** 被咬的伤害。 */
+    public static float hungerBiteDamage = 1.0F;
+
+    /* ==================== 玛尔巴斯之噬 · 寄生 ==================== */
+
+    /** 饱食度上限。 */
+    public static int marbasSatietyMax = 100;
+
+    /** 每击杀一名敌人回复的饱食度。 */
+    public static int marbasSatietyPerKill = 18;
+
+    /** 每秒自然消耗的饱食度（它一直在饿）。 */
+    public static int marbasSatietyDecayPerSecond = 1;
+
+    /** 替玩家挡下一次致命伤害所需的饱食度。 */
+    public static int marbasSatietyBlockCost = 60;
+
+    /** 挡刀后保留的血量。 */
+    public static float marbasBlockReviveHealth = 4.0F;
+
+    /** 饱食度为 0 时每秒咬玩家的伤害。 */
+    public static float marbasStarvingBiteDamage = 1.0F;
+
+    /* ==================== 厄血套装 · 血债 ==================== */
+
+    /** 血债是否启用（想关掉这个机制就设 false，套装退回普通属性加成）。 */
+    public static boolean debtEnabled = true;
+
+    /** 血债上限：达到最大生命值的这个比例就一次性结算。 */
+    public static float debtLimitRatio = 0.40F;
+
+    /** 你造成 1 点伤害能抵掉多少血债。 */
+    public static float debtPayoffRatio = 1.0F;
+
+    /** 每秒自然消退的血债（给个下限，否则打不出伤害就是必死）。 */
+    public static float debtDecayPerSecond = 0.5F;
+
+    /** 还清血债时回复的生命。 */
+    public static float debtClearedHeal = 2.0F;
 }

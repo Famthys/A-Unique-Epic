@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "aunique-epic:item/sword_in_stone"
+    "layer0": "aunique-epic:item/lake_light"
   }
 }

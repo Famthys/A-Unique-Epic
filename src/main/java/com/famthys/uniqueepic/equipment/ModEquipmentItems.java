@@ -28,7 +28,7 @@ public final class ModEquipmentItems {
     /* ==================== 一、噬心大剑（厄血） ==================== */
 
     public static final Item HEART_DEVOURER =
-            registerSword("heart_devourer", 7.0F, -3.0F);
+            registerSword("heart_devourer", 7.0F, -3.0F, HungerGreatswordItem::new);
 
     /* ==================== 二、石中剑（荣耀王） ==================== */
 
@@ -38,24 +38,24 @@ public final class ModEquipmentItems {
     /* ==================== 三、圆桌骑士套装（荣耀王） ==================== */
 
     public static final Item ROUND_TABLE_HELMET =
-            registerArmor("round_table_helmet", ArmorType.HELMET, ModArmorMaterials.KNIGHT);
+            registerArmor("round_table_helmet", ArmorType.HELMET, ModArmorMaterials.KNIGHT, Item::new);
     public static final Item OATH_CHESTPLATE =
-            registerArmor("oath_chestplate", ArmorType.CHESTPLATE, ModArmorMaterials.KNIGHT);
+            registerArmor("oath_chestplate", ArmorType.CHESTPLATE, ModArmorMaterials.KNIGHT, Item::new);
     public static final Item GLORY_LEGGINGS =
-            registerArmor("glory_leggings", ArmorType.LEGGINGS, ModArmorMaterials.KNIGHT);
+            registerArmor("glory_leggings", ArmorType.LEGGINGS, ModArmorMaterials.KNIGHT, Item::new);
     public static final Item EXPEDITION_BOOTS =
-            registerArmor("expedition_boots", ArmorType.BOOTS, ModArmorMaterials.KNIGHT);
+            registerArmor("expedition_boots", ArmorType.BOOTS, ModArmorMaterials.KNIGHT, Item::new);
 
     /* ==================== 四、厄血套装（厄血） ==================== */
 
     public static final Item FEROCIOUS_MASK =
-            registerArmor("ferocious_mask", ArmorType.HELMET, ModArmorMaterials.BLOOD);
+            registerArmor("ferocious_mask", ArmorType.HELMET, ModArmorMaterials.BLOOD, BloodSetArmorItem::new);
     public static final Item MUTATED_CHESTPLATE =
-            registerArmor("mutated_chestplate", ArmorType.CHESTPLATE, ModArmorMaterials.BLOOD);
+            registerArmor("mutated_chestplate", ArmorType.CHESTPLATE, ModArmorMaterials.BLOOD, BloodSetArmorItem::new);
     public static final Item RAMPAGE_LEGGINGS =
-            registerArmor("rampage_leggings", ArmorType.LEGGINGS, ModArmorMaterials.BLOOD);
+            registerArmor("rampage_leggings", ArmorType.LEGGINGS, ModArmorMaterials.BLOOD, BloodSetArmorItem::new);
     public static final Item SHATTERED_BOOTS =
-            registerArmor("shattered_boots", ArmorType.BOOTS, ModArmorMaterials.BLOOD);
+            registerArmor("shattered_boots", ArmorType.BOOTS, ModArmorMaterials.BLOOD, BloodSetArmorItem::new);
 
     /* ==================== 五、玛尔巴斯之噬（护符） ==================== */
 
@@ -75,17 +75,19 @@ public final class ModEquipmentItems {
 
     /* ==================== 注册工具 ==================== */
 
-    private static Item registerSword(String name, float attackDamage, float attackSpeed) {
+    private static Item registerSword(String name, float attackDamage, float attackSpeed,
+                                      Function<Item.Properties, Item> factory) {
         ResourceKey<Item> key = ModItemIds.create(name);
-        return ModItems.register(key, Item::new,
+        return ModItems.register(key, factory,
                 new Item.Properties()
                         .rarity(Rarity.RARE)
                         .sword(ToolMaterial.NETHERITE, attackDamage, attackSpeed));
     }
 
-    private static Item registerArmor(String name, ArmorType type, ArmorMaterial material) {
+    private static Item registerArmor(String name, ArmorType type, ArmorMaterial material,
+                                      Function<Item.Properties, Item> factory) {
         ResourceKey<Item> key = ModItemIds.create(name);
-        return ModItems.register(key, Item::new,
+        return ModItems.register(key, factory,
                 new Item.Properties()
                         .rarity(Rarity.RARE)
                         .humanoidArmor(material, type));

@@ -1,6 +1,6 @@
 package com.famthys.uniqueepic.mixin;
 
-import com.famthys.uniqueepic.hero.HeroesExpeditionEffects;
+import com.famthys.uniqueepic.equipment.IncomingDamage;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -10,11 +10,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 /**
- * 勇者之征"重担"的受伤翻倍、"危机"的火焰加剧。
+ * 玩家承受伤害的统一注入点。
  *
- * <p>注入点选在 {@code actuallyHurt} 而不是 {@code hurtServer}：这个方法拿到的血量已经是
- * 扣完护甲和附魔之后的最终值，在这里翻倍就是字面意义上的"受到的伤害为双倍"。写在
- * {@code hurtServer} 里则会被后续的护甲计算按比例削弱，语义不对。</p>
+ * <p>注入在 {@code actuallyHurt}：这里拿到的血量已经是扣完护甲和附魔之后的最终值，
+ * 所以"翻倍""减半""记成血债"都是字面意义上对<b>最终伤害</b>操作。写在 {@code hurtServer}
+ * 会被后续护甲计算按比例削弱，语义不对。</p>
+ *
+ * <p>具体规则全部交给 {@link IncomingDamage}，mixin 只负责挂钩子。</p>
  *
  * <p>方法描述符写全，避免和同名重载撞车。</p>
  */
@@ -28,11 +30,11 @@ public abstract class LivingEntityDamageMixin {
             argsOnly = true,
             ordinal = 0
     )
-    private float uniqueepic$heroesExpeditionIncomingDamage(float amount,
-                                                            ServerLevel level,
-                                                            DamageSource source) {
+    private float uniqueepic$modifyIncomingDamage(float amount,
+                                                  ServerLevel level,
+                                                  DamageSource source) {
         if ((Object) this instanceof ServerPlayer player) {
-            return HeroesExpeditionEffects.modifyIncomingDamage(player, source, amount);
+            return IncomingDamage.modify(player, source, amount);
         }
         return amount;
     }

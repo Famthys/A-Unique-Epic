@@ -16,6 +16,17 @@ repositories {
 			includeGroup "maven.modrinth"
 		}
 	}
+	// GeckoLib 5：人面犬的骨骼动画要用它。
+	// 官方要求用 exclusiveContent 限定 com.geckolib 组，因为这个 maven 不可浏览。
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = "GeckoLib"
+				url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"
+			}
+		}
+		filter { includeGroupAndSubgroups("com.geckolib") }
+	}
 }
 
 loom {
@@ -41,6 +52,11 @@ dependencies {
 	// 这个模板用的是 implementation 而不是老式的 modImplementation——Loom 1.17 会自动
 	// 识别 Fabric mod 依赖并做重映射，fabric-api 那一行也是同样的写法。
 	implementation "maven.modrinth:trinkets-updated:${project.trinkets_version}"
+
+	// GeckoLib 5：人面犬的骨骼模型与动画。
+	// 官方文档写 modImplementation，但本模板的 Loom 没有这个配置——和 Trinkets 一样用
+	// implementation，Loom 1.17 会自动识别 Fabric mod 依赖并重映射。
+	implementation "com.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}"
 }
 
 processResources {
